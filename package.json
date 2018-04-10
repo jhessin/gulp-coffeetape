@@ -3,52 +3,72 @@
   "version": "0.0.0",
   "description": "Run Tape tests written in CoffeeScript",
   "homepage": "https://github.com/jhessin/gulp-coffeetape",
-  "repository": "jhessin/gulp-coffeetape",
   "author": {
     "name": "Jim Hessin",
     "email": "jhessin@gmail.com",
     "url": "http://www.grillbrickstudios.com"
   },
+  "files": ["lib"],
   "main": "lib/index.js",
-  "engines": {
-    "npm": ">= 4.0.0"
-  },
-  "scripts": {
-    "start": "gulp && node .",
-    "watch": "gulp watch",
-    "pretest": "gulp",
-    "postinstall": "gulp",
-    "prepublishOnly": "nsp check",
-    "precommit": "lint-staged",
-    "test": "jest"
-  },
-  "lint-staged": {
-    "*.coffee": [
-      "coffeelint",
-      "git add"
-    ]
-  },
-  "jest": {
-    "testEnvironment": "node"
-  },
+  "keywords": ["gulp", "tape", "coffeetape", "test"],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "coffee-babel": "^1.0.4",
     "coffeelint": "^2.1.0",
     "coffeescript": "^2.2.4",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-xo": "^0.20.1",
+    "eslint-plugin-prettier": "^2.6.0",
     "gulp": "^4.0.0",
     "gulp-coffee": "^3.0.2",
     "gulp-cson": "^0.4.0",
     "gulp-sourcemaps": "^2.6.4",
-    "jest": "^22.4.3",
-    "lint-staged": "^7.0.4",
-    "nsp": "^3.2.1"
+    "gulp-tape": "^1.0.0",
+    "husky": "^0.14.3",
+    "jest": "^22.0.6",
+    "lint-staged": "^6.1.1",
+    "nsp": "^2.8.0",
+    "prettier": "^1.11.1"
   },
-  "keywords": [
-    "gulp",
-    "tape",
-    "coffeetape",
-    "test"
-  ],
-  "license": "MIT"
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "repository": "jhessin/gulp-coffeetape",
+  "scripts": {
+    "start": "gulp && node .",
+    "watch": "gulp watch",
+    "pretest": "coffeelint src && gulp",
+    "prepublishOnly": "nsp check && gulp",
+    "precommit": "lint-staged",
+    "test": "jest"
+  },
+  "lint-staged": {
+    "*.coffee": ["coffeelint", "git add"],
+    "*.js": ["eslint --fix", "git add"],
+    "*.json": ["prettier --write", "git add"]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "MIT",
+  "eslintConfig": {
+    "extends": ["xo", "prettier"],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "printWidth": 90
+        }
+      ]
+    },
+    "plugins": ["prettier"]
+  }
 }
